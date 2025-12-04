@@ -313,6 +313,70 @@ const formatDate = (date: Date) => {
     border-bottom-color: #0a45c3;
   }
 
+  /* Tables */
+  .article-content :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 15px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .article-content :global(thead) {
+    background-color: #f8f9fb;
+  }
+
+  .article-content :global(th) {
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    color: #666666;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .article-content :global(td) {
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    color: #333333;
+  }
+
+  .article-content :global(tr:last-child td) {
+    border-bottom: none;
+  }
+
+  .article-content :global(tbody tr:hover) {
+    background-color: #f8f9fb;
+  }
+
+  .article-content :global(td strong) {
+    color: #000000;
+    font-weight: 600;
+  }
+
+  /* Responsive table wrapper */
+  .article-content :global(table) {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @media (min-width: 640px) {
+    .article-content :global(table) {
+      display: table;
+    }
+
+    .article-content :global(th),
+    .article-content :global(td) {
+      padding: 16px 20px;
+    }
+  }
+
   .article-footer {
     display: flex;
     flex-direction: column;
