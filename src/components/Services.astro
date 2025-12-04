@@ -1,0 +1,337 @@
+---
+interface Service {
+  number: string;
+  title: string;
+  description: string;
+  forWhom?: string;
+  features?: string[];
+  technologies?: string;
+  timeline?: string;
+  price?: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  services?: Service[];
+}
+
+const {
+  title = "Наши услуги",
+  subtitle = "Полный цикл разработки IT-решений под ключ",
+  services = [
+    {
+      number: "01",
+      title: "Веб-приложения",
+      description: "Разрабатываем современные веб-платформы для вашего бизнеса",
+      forWhom: "E-commerce, SaaS, маркетплейсы, аналитические платформы",
+      features: [
+        "Персонализированные интерфейсы",
+        "Интеграция с платежными системами и CRM",
+        "Масштабируемая архитектура",
+        "Адаптивный дизайн для всех устройств"
+      ],
+      technologies: "React, Vue.js, Node.js, Python",
+      timeline: "от 4 недель",
+      price: "от 150 000 ₽",
+    },
+    {
+      number: "02",
+      title: "Мобильные приложения",
+      description: "Создаем кроссплатформенные мобильные приложения для iOS и Android",
+      forWhom: "iOS/Android приложения, бизнес-процессы в полевых условиях",
+      features: [
+        "Работа онлайн/оффлайн",
+        "Push-уведомления и синхронизация с серверами",
+        "Интеграция с GPS, камерой, контактами",
+        "Нативная производительность"
+      ],
+      technologies: "React Native, Flutter, Swift, Kotlin",
+      timeline: "от 6 недель",
+      price: "от 250 000 ₽",
+    },
+    {
+      number: "03",
+      title: "Кастомное ПО",
+      description: "Разрабатываем индивидуальные решения под специфические задачи бизнеса",
+      forWhom: "Автоматизация бизнес-процессов, CRM, ERP системы",
+      features: [
+        "Интеграция с существующей инфраструктурой",
+        "Автоматизация рутинных операций",
+        "Аналитика и отчетность",
+        "Техническая поддержка и обучение"
+      ],
+      technologies: "Python, Node.js, PostgreSQL, Docker",
+      timeline: "от 8 недель",
+      price: "по запросу",
+    },
+  ],
+} = Astro.props;
+---
+
+<section id="services" class="services">
+  <div class="services-container">
+    <div class="services-header">
+      <h2 class="services-title">{title}</h2>
+      <p class="services-subtitle">{subtitle}</p>
+    </div>
+
+    <div class="services-grid">
+      {
+        services.map((service) => (
+          <div class="service-card">
+            <div class="service-content">
+              <div class="service-number">{service.number}</div>
+              <h3 class="service-title">{service.title}</h3>
+              <p class="service-description">{service.description}</p>
+              
+              {service.forWhom && (
+                <div class="service-detail">
+                  <h4 class="service-detail-title">Для кого:</h4>
+                  <p class="service-detail-text">{service.forWhom}</p>
+                </div>
+              )}
+              
+              {service.features && service.features.length > 0 && (
+                <div class="service-detail">
+                  <h4 class="service-detail-title">Функциональность:</h4>
+                  <ul class="service-features">
+                    {service.features.map((feature) => (
+                      <li>{feature}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              
+              <div class="service-meta">
+                {service.technologies && (
+                  <div class="service-meta-item">
+                    <span class="service-meta-label">Технологии:</span>
+                    <span class="service-meta-value">{service.technologies}</span>
+                  </div>
+                )}
+                {service.timeline && (
+                  <div class="service-meta-item">
+                    <span class="service-meta-label">Сроки:</span>
+                    <span class="service-meta-value">{service.timeline}</span>
+                  </div>
+                )}
+                {service.price && (
+                  <div class="service-meta-item">
+                    <span class="service-meta-label">Стоимость:</span>
+                    <span class="service-meta-value">{service.price}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .services {
+    max-width: 896px;
+    margin: 0 auto;
+    padding: 48px 16px;
+  }
+
+  .services-container {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .services-header {
+    text-align: center;
+  }
+
+  .services-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #000000;
+    margin: 0 0 16px 0;
+  }
+
+  .services-subtitle {
+    font-size: 16px;
+    color: #666666;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .service-card {
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+    padding: 24px;
+    transition: all 0.3s ease;
+  }
+
+  .service-card:hover {
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+
+  .service-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .service-number {
+    font-size: 40px;
+    font-weight: 700;
+    color: #cccccc;
+    line-height: 1;
+  }
+
+  .service-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #000000;
+    margin: 0;
+  }
+
+  .service-description {
+    font-size: 14px;
+    color: #666666;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .service-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .service-detail-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #000000;
+    margin: 0;
+  }
+
+  .service-detail-text {
+    font-size: 13px;
+    color: #666666;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .service-features {
+    margin: 0;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .service-features li {
+    font-size: 13px;
+    color: #666666;
+    line-height: 1.5;
+  }
+
+  .service-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .service-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .service-meta-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .service-meta-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: #000000;
+  }
+
+  /* Tablet */
+  @media (min-width: 640px) {
+    .services {
+      padding: 80px 24px;
+    }
+
+    .services-container {
+      gap: 64px;
+    }
+
+    .services-title {
+      font-size: 36px;
+    }
+
+    .services-subtitle {
+      font-size: 18px;
+    }
+
+    .services-grid {
+      gap: 32px;
+    }
+
+    .service-card {
+      border-radius: 24px;
+      padding: 32px;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .service-number {
+      font-size: 56px;
+    }
+
+    .service-title {
+      font-size: 24px;
+    }
+
+    .service-description {
+      font-size: 16px;
+    }
+
+    .service-detail-title,
+    .service-detail-text,
+    .service-features li {
+      font-size: 14px;
+    }
+
+    .service-meta-item {
+      flex-direction: row;
+      gap: 8px;
+      align-items: baseline;
+    }
+
+    .service-meta-label {
+      font-size: 13px;
+    }
+
+    .service-meta-value {
+      font-size: 14px;
+    }
+  }
+</style>

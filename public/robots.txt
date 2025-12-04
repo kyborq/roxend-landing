@@ -1,0 +1,10 @@
+# robots.txt для roxend.ru
+User-agent: *
+Allow: /
+
+# Запрет на индексацию API эндпоинтов
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://roxend.ru/sitemap-index.xml
+

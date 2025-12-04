@@ -1,0 +1,20 @@
+{
+  "name": "Roxend - Разработка веб и мобильных приложений",
+  "short_name": "Roxend",
+  "description": "Разрабатываем кастомное программное обеспечение, веб и мобильные приложения для любой сферы бизнеса",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fafafa",
+  "theme_color": "#000000",
+  "lang": "ru",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
+

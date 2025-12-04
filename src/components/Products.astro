@@ -1,0 +1,393 @@
+---
+interface Product {
+  id: string;
+  name: string;
+  description: string;
+  features: string[];
+  status: string;
+  statusColor: string;
+  link?: string;
+  image?: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  products?: Product[];
+}
+
+const {
+  title = "Наши продукты",
+  subtitle = "Собственные решения для различных сфер бизнеса",
+  products = [
+    {
+      id: "codecolab",
+      name: "CodeColab",
+      description:
+        "Образовательная платформа для преподавателей и студентов. Создавайте и проверяйте лабораторные работы по программированию с встроенным онлайн-редактором кода и автоматической проверкой.",
+      features: [
+        "Онлайн-редактор кода с подсветкой синтаксиса",
+        "Автоматическая проверка решений студентов",
+        "Управление группами и заданиями",
+        "Статистика и аналитика успеваемости",
+      ],
+      status: "Запущен",
+      statusColor: "green",
+      link: "https://codecolab.ru/",
+      image: "/images/codecolab.png",
+    },
+  ],
+} = Astro.props;
+---
+
+<section id="products" class="products">
+  <div class="products-container">
+    <div class="products-header">
+      <h2 class="products-title">{title}</h2>
+      <p class="products-subtitle">{subtitle}</p>
+    </div>
+
+    <div class="products-list">
+      {
+        products.map((product) => (
+          <div class="product-card">
+            <div class="product-header">
+              <div class="product-icon">
+                <svg
+                  class="icon-svg"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width={2}
+                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                  />
+                </svg>
+              </div>
+              <div class="product-title-wrapper">
+                <h3 class="product-name">{product.name}</h3>
+                <span class={`product-status status-${product.statusColor}`}>
+                  {product.status}
+                </span>
+              </div>
+            </div>
+
+            <p class="product-description">{product.description}</p>
+
+            <ul class="product-features">
+              {product.features.map((feature) => (
+                <li class="product-feature">
+                  <svg
+                    class="feature-icon"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+
+            {product.link && (
+              <a
+                href={product.link}
+                class="product-link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Узнать подробнее
+                <svg
+                  class="link-arrow"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width={2}
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
+                </svg>
+              </a>
+            )}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .products {
+    max-width: 896px;
+    margin: 0 auto;
+    padding: 48px 16px;
+  }
+
+  .products-container {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .products-header {
+    text-align: center;
+  }
+
+  .products-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #000000;
+    margin: 0 0 16px 0;
+  }
+
+  .products-subtitle {
+    font-size: 16px;
+    color: #666666;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .products-list {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .product-card {
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 24px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    transition: all 0.3s ease;
+  }
+
+  .product-card:hover {
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .product-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .product-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #000000 0%, #333333 100%);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .icon-svg {
+    width: 32px;
+    height: 32px;
+    color: #ffffff;
+  }
+
+  .product-title-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .product-name {
+    font-size: 28px;
+    font-weight: 700;
+    color: #000000;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .product-status {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    align-self: flex-start;
+  }
+
+  .status-green {
+    background-color: rgba(34, 197, 94, 0.12);
+    color: rgb(21, 128, 61);
+  }
+
+  .product-description {
+    font-size: 16px;
+    color: #666666;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .product-features {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .product-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+  }
+
+  .feature-icon {
+    width: 20px;
+    height: 20px;
+    color: #000000;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .product-feature span {
+    font-size: 15px;
+    color: #333333;
+    line-height: 1.6;
+  }
+
+  .product-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 28px;
+    background-color: #000000;
+    color: #ffffff;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+  }
+
+  .product-link:hover {
+    background-color: #333333;
+    transform: translateX(2px);
+  }
+
+  .link-arrow {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.3s ease;
+  }
+
+  .product-link:hover .link-arrow {
+    transform: translateX(2px);
+  }
+
+  /* Tablet */
+  @media (min-width: 640px) {
+    .products {
+      padding: 80px 24px;
+    }
+
+    .products-container {
+      gap: 64px;
+    }
+
+    .products-title {
+      font-size: 36px;
+    }
+
+    .products-subtitle {
+      font-size: 18px;
+    }
+
+    .product-card {
+      padding: 40px;
+      gap: 28px;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .product-header {
+      gap: 20px;
+    }
+
+    .product-icon {
+      width: 72px;
+      height: 72px;
+    }
+
+    .icon-svg {
+      width: 36px;
+      height: 36px;
+    }
+
+    .product-name {
+      font-size: 32px;
+    }
+
+    .product-status {
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+
+    .product-description {
+      font-size: 17px;
+    }
+
+    .product-features {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px 20px;
+    }
+
+    .product-feature {
+      padding: 8px 0;
+    }
+
+    .product-feature span {
+      font-size: 16px;
+    }
+
+    .product-link {
+      padding: 16px 32px;
+      font-size: 16px;
+    }
+
+    .link-arrow {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  /* Desktop */
+  @media (min-width: 1024px) {
+    .product-name {
+      font-size: 36px;
+    }
+
+    .product-description {
+      font-size: 18px;
+    }
+  }
+</style>

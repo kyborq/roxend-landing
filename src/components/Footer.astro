@@ -1,0 +1,274 @@
+---
+interface ServiceLink {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  companyName?: string;
+  companyDescription?: string;
+  services?: ServiceLink[];
+  contacts?: {
+    email: string;
+    telegram: string;
+    telegramLink: string;
+  };
+  legalInfo?: {
+    ownerName: string;
+    status: string;
+    location: string;
+    note: string;
+  };
+}
+
+const {
+  companyName = "Roxend",
+  companyDescription = "Разработка веб и мобильных приложений под ключ. От идеи до запуска продукта.",
+  services = [
+    { label: "Веб-приложения", href: "#services" },
+    { label: "Мобильные приложения", href: "#services" },
+    { label: "Кастомное ПО", href: "#services" },
+  ],
+  contacts = {
+    email: "info@roxend.ru",
+    telegram: "@roxendsoft",
+    telegramLink: "https://t.me/roxendsoft",
+  },
+  legalInfo = {
+    ownerName: "Подыганов Константин Эдуардович",
+    status: "",
+    location: "Россия, Республика Марий Эл, Йошкар-Ола",
+    note: "Работаем удаленно по всей России",
+  },
+} = Astro.props;
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-grid">
+      <div class="footer-section">
+        <div class="footer-logo">{companyName}</div>
+        <p class="footer-description">{companyDescription}</p>
+      </div>
+
+      <div class="footer-section">
+        <h4 class="footer-heading">Услуги</h4>
+        <div class="footer-links">
+          {
+            services.map((service) => (
+              <a href={service.href} class="footer-link footer-link-hover">
+                {service.label}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h4 class="footer-heading">Контакты</h4>
+        <div class="footer-links">
+          <a
+            href={`mailto:${contacts.email}`}
+            class="footer-link footer-link-hover"
+            aria-label="Написать на email">{contacts.email}</a
+          >
+          <a
+            href={contacts.telegramLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="footer-link footer-link-hover"
+            aria-label="Связаться в Telegram"
+          >
+            {contacts.telegram}
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h4 class="footer-heading">Документы</h4>
+        <div class="footer-links">
+          <a
+            href="/privacy"
+            class="footer-link footer-link-hover"
+            aria-label="Политика конфиденциальности"
+          >
+            Политика конфиденциальности
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-legal">
+      <div class="footer-legal-grid">
+        <div class="footer-legal-item">
+          <p class="footer-legal-text">{legalInfo.ownerName}</p>
+          <p class="footer-legal-text">{legalInfo.status}</p>
+        </div>
+        <div class="footer-legal-item">
+          <p class="footer-legal-text">Местоположение:</p>
+          <p class="footer-legal-text">{legalInfo.location}</p>
+          <p class="footer-legal-note">{legalInfo.note}</p>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        © {currentYear}
+        {companyName}. Все права защищены.
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    max-width: 896px;
+    margin: 0 auto;
+    padding: 40px 16px;
+  }
+
+  .footer-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    margin-bottom: 40px;
+  }
+
+  .footer-section {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .footer-logo {
+    font-size: 18px;
+    font-weight: 700;
+    color: #000000;
+  }
+
+  .footer-description {
+    font-size: 14px;
+    color: #666666;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .footer-heading {
+    font-size: 15px;
+    font-weight: 600;
+    color: #000000;
+    margin: 0;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .footer-link {
+    font-size: 14px;
+    color: #666666;
+    text-decoration: none;
+    line-height: 1.5;
+  }
+
+  .footer-link-hover {
+    transition: color 0.3s ease;
+  }
+
+  .footer-link-hover:hover {
+    color: #000000;
+  }
+
+  .footer-divider {
+    width: 100%;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.08);
+    margin-bottom: 32px;
+  }
+
+  .footer-legal {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .footer-legal-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .footer-legal-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .footer-legal-text {
+    font-size: 12px;
+    color: #666666;
+    margin: 0;
+  }
+
+  .footer-legal-note {
+    font-size: 12px;
+    color: #999999;
+    margin: 8px 0 0 0;
+  }
+
+  .footer-copyright {
+    text-align: center;
+    font-size: 14px;
+    color: #666666;
+    padding-top: 16px;
+  }
+
+  /* Tablet */
+  @media (min-width: 640px) {
+    .footer {
+      padding: 64px 24px;
+    }
+
+    .footer-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      margin-bottom: 48px;
+    }
+
+    .footer-section {
+      gap: 16px;
+    }
+
+    .footer-logo {
+      font-size: 20px;
+    }
+
+    .footer-heading {
+      font-size: 16px;
+    }
+
+    .footer-links {
+      gap: 8px;
+    }
+
+    .footer-legal-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Desktop */
+  @media (min-width: 1024px) {
+    .footer-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

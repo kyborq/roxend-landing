@@ -1,0 +1,22 @@
+{
+  "name": "roxend.ru",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/node": "^9.4.3",
+    "@astrojs/sitemap": "^3.6.0",
+    "@fontsource-variable/montserrat": "^5.2.8",
+    "astro": "^5.13.8",
+    "dotenv": "^17.2.3",
+    "nodemailer": "^7.0.10"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^7.0.3"
+  }
+}

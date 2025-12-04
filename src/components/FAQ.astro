@@ -1,0 +1,248 @@
+---
+interface FAQItem {
+  id: string;
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  items?: FAQItem[];
+}
+
+const {
+  title = "Часто задаваемые вопросы",
+  subtitle = "Ответы на популярные вопросы о разработке и сотрудничестве",
+  items = [
+    {
+      id: "1",
+      question: "Сколько стоит разработка приложения?",
+      answer: "От 150 000 ₽ за простое мобильное приложение до 5M+ за сложные системы. Мы даем точную смету после изучения вашего ТЗ. Стоимость зависит от функциональности, сложности интеграций и дизайна."
+    },
+    {
+      id: "2",
+      question: "Какие сроки разработки?",
+      answer: "Простое приложение: 4-6 недель. Среднее (5-10 экранов, интеграции): 8-12 недель. Сложное: 3-6 месяцев. Срочные проекты обсуждаются индивидуально (возможна переплата 20-40%)."
+    },
+    {
+      id: "3",
+      question: "Что произойдет, если мне не понравится результат?",
+      answer: "Бесплатные правки в течение 14 дней после запуска. После этого правки оплачиваются по тарифу 2 000-3 000 ₽/час. Мы работаем итерациями и показываем прогресс каждую неделю, чтобы избежать сюрпризов в конце."
+    },
+    {
+      id: "4",
+      question: "Какие гарантии после запуска?",
+      answer: "Месяц поддержки включен в смету: исправление критичных багов в течение 24 часов. Далее предлагаем почасовую поддержку от 5 000 ₽/месяц или пакеты технической поддержки."
+    },
+    {
+      id: "5",
+      question: "Вы можете работать по моему ТЗ или своему?",
+      answer: "По вашему ТЗ предпочтительнее. Если ТЗ нечеткое, поможем его уточнить (это входит в консультацию). Если ТЗ нет совсем, предложим свой вариант архитектуры (+подготовка 1-2 недели)."
+    },
+    {
+      id: "6",
+      question: "Могу ли я видеть код и следить за процессом?",
+      answer: "Да. Полный доступ к Git-репозиторию с кодом. Еженедельные созвоны (понедельник, 10:00). Вы видите все изменения в реальном времени и можете вносить правки на любом этапе."
+    },
+    {
+      id: "7",
+      question: "Кому принадлежит исходный код?",
+      answer: "Исходный код полностью переходит заказчику после финальной оплаты. Вы получаете все права на код, документацию и можете свободно его использовать, модифицировать или передавать другим разработчикам."
+    },
+  ],
+} = Astro.props;
+---
+
+<section id="faq" class="faq">
+  <div class="faq-container">
+    <div class="faq-header">
+      <h2 class="faq-title">{title}</h2>
+      <p class="faq-subtitle">{subtitle}</p>
+    </div>
+
+    <div class="faq-list">
+      {
+        items.map((item) => (
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span class="faq-question-text">{item.question}</span>
+              <svg 
+                class="faq-icon" 
+                width="20" 
+                height="20" 
+                viewBox="0 0 20 20" 
+                fill="none" 
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </summary>
+            <div class="faq-answer">{item.answer}</div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    max-width: 896px;
+    margin: 0 auto;
+    padding: 48px 16px;
+  }
+
+  .faq-container {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .faq-header {
+    text-align: center;
+  }
+
+  .faq-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #000000;
+    margin: 0 0 16px 0;
+  }
+
+  .faq-subtitle {
+    font-size: 16px;
+    color: #666666;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .faq-item {
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .faq-item:hover {
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .faq-item[open] {
+    border-color: rgba(0, 0, 0, 0.12);
+  }
+
+  .faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 20px;
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-question-text {
+    font-size: 15px;
+    font-weight: 600;
+    color: #000000;
+    line-height: 1.4;
+  }
+
+  .faq-icon {
+    flex-shrink: 0;
+    color: #666666;
+    transition: transform 0.3s ease;
+  }
+
+  .faq-item[open] .faq-icon {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    padding: 0 20px 20px 20px;
+    font-size: 14px;
+    color: #666666;
+    line-height: 1.6;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Tablet */
+  @media (min-width: 640px) {
+    .faq {
+      padding: 80px 24px;
+    }
+
+    .faq-container {
+      gap: 64px;
+    }
+
+    .faq-title {
+      font-size: 36px;
+    }
+
+    .faq-subtitle {
+      font-size: 18px;
+    }
+
+    .faq-list {
+      gap: 20px;
+    }
+
+    .faq-item {
+      border-radius: 20px;
+    }
+
+    .faq-question {
+      padding: 22px 28px;
+    }
+
+    .faq-question-text {
+      font-size: 17px;
+    }
+
+    .faq-answer {
+      padding: 0 28px 24px 28px;
+      font-size: 15px;
+    }
+  }
+
+  /* Desktop */
+  @media (min-width: 1024px) {
+    .faq-question-text {
+      font-size: 18px;
+    }
+
+    .faq-answer {
+      font-size: 16px;
+    }
+  }
+</style>
+

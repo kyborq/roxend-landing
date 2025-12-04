@@ -1,0 +1,17 @@
+/* TEAM */
+Developer: Roxend Team
+Contact: info@roxend.ru
+Telegram: @roxendsoft
+From: Russia
+
+/* SITE */
+Last update: 2025/10/29
+Language: Russian
+Doctype: HTML5
+IDE: VS Code, Cursor
+Technologies: Astro, TypeScript, Node.js
+
+/* THANKS */
+Thank you for visiting roxend.ru
+We create web and mobile applications that work for your success
+

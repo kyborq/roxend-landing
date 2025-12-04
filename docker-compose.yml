@@ -1,0 +1,23 @@
+services:
+  roxend_static:
+    build: .
+    container_name: roxend_static
+    restart: unless-stopped
+    networks:
+      - roxend_network
+    labels:
+      - "traefik.enable=true"
+      # HTTP router (redirect to HTTPS)
+      - "traefik.http.routers.roxend_static.rule=Host(`roxend.ru`)"
+      - "traefik.http.routers.roxend_static.entrypoints=web"
+      - "traefik.http.routers.roxend_static.middlewares=redirect-to-https@file"
+      # HTTPS router
+      - "traefik.http.routers.roxend_static_secure.rule=Host(`roxend.ru`)"
+      - "traefik.http.routers.roxend_static_secure.entrypoints=websecure"
+      - "traefik.http.routers.roxend_static_secure.tls.certresolver=letsencrypt"
+    expose:
+      - "4321"
+
+networks:
+  roxend_network:
+    external: true
