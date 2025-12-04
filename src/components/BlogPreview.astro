@@ -1,0 +1,263 @@
+---
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog"))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const formatDate = (date: Date) => {
+  return new Intl.DateTimeFormat("ru-RU", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  }).format(date);
+};
+---
+
+{
+  posts.length > 0 && (
+    <section id="cases" class="blog-preview">
+      <div class="blog-container">
+        <div class="blog-header">
+          <h2 class="blog-title">Кейсы проектов</h2>
+          <p class="blog-subtitle">Реальные истории разработки и результаты наших клиентов</p>
+        </div>
+
+        <div class="posts-grid">
+          {posts.map((post) => (
+            <a href={`/blog/${post.slug}`} class="post-card">
+              {post.data.heroImage && (
+                <div class="post-image">
+                  <img src={post.data.heroImage} alt={post.data.title} loading="lazy" />
+                </div>
+              )}
+              <div class="post-content">
+                <div class="post-meta">
+                  {post.data.industry && (
+                    <span class="post-industry">{post.data.industry}</span>
+                  )}
+                  <time datetime={post.data.pubDate.toISOString()}>
+                    {formatDate(post.data.pubDate)}
+                  </time>
+                </div>
+                <h3 class="post-title">{post.data.title}</h3>
+                <p class="post-description">{post.data.description}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        <div class="blog-footer">
+          <a href="/blog" class="view-all-link">Смотреть все кейсы →</a>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .blog-preview {
+    max-width: 896px;
+    margin: 0 auto;
+    padding: 48px 16px;
+  }
+
+  .blog-container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .blog-header {
+    text-align: center;
+  }
+
+  .blog-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #000000;
+    margin: 0 0 16px 0;
+  }
+
+  .blog-subtitle {
+    font-size: 16px;
+    color: #666666;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .post-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .post-card:hover {
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+  }
+
+  .post-image {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f0f4ff 0%, #e8ecf4 100%);
+  }
+
+  .post-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .post-card:hover .post-image img {
+    transform: scale(1.05);
+  }
+
+  .post-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    color: #888888;
+  }
+
+  .post-industry {
+    background-color: #f0f4ff;
+    color: #0a45c3;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 11px;
+  }
+
+  .post-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #000000;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .post-description {
+    font-size: 14px;
+    color: #666666;
+    line-height: 1.5;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .blog-footer {
+    display: flex;
+    justify-content: center;
+  }
+
+  .view-all-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 14px 28px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #0a45c3;
+    background-color: #f0f4ff;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .view-all-link:hover {
+    background-color: #e0e8ff;
+    transform: translateX(4px);
+  }
+
+  /* Tablet */
+  @media (min-width: 640px) {
+    .blog-preview {
+      padding: 80px 24px;
+    }
+
+    .blog-container {
+      gap: 48px;
+    }
+
+    .blog-title {
+      font-size: 36px;
+    }
+
+    .blog-subtitle {
+      font-size: 18px;
+    }
+
+    .posts-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .post-image {
+      height: 140px;
+    }
+
+    .post-content {
+      padding: 18px;
+    }
+
+    .post-title {
+      font-size: 16px;
+    }
+
+    .post-description {
+      font-size: 13px;
+    }
+  }
+
+  /* Desktop */
+  @media (min-width: 1024px) {
+    .posts-grid {
+      gap: 28px;
+    }
+
+    .post-card {
+      border-radius: 24px;
+    }
+
+    .post-image {
+      height: 160px;
+    }
+
+    .post-content {
+      padding: 22px;
+    }
+
+    .post-title {
+      font-size: 17px;
+    }
+
+    .post-description {
+      font-size: 14px;
+    }
+  }
+</style>
+
