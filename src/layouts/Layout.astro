@@ -13,7 +13,7 @@ interface Props {
 
 const {
   title = "Roxend — Разработка веб и мобильных приложений под ключ",
-  description = "Разработка веб и мобильных приложений под ключ. Полный цикл от идеи до запуска. Прямое общение с исполнителем, современные технологии, качественный код.",
+  description = "Разработка веб и мобильных приложений под ключ. Полный цикл от идеи до запуска. Современные технологии и качественный код.",
   image = "/og-image.svg",
   noindex = false,
 } = Astro.props;
@@ -67,6 +67,7 @@ const ogImage = new URL(image, Astro.site);
 
     <!-- Favicon & PWA -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
     <link rel="manifest" href="/manifest.json" />
     <link rel="author" href="/humans.txt" />
     <meta name="theme-color" content="#000000" />

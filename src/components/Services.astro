@@ -87,14 +87,14 @@ const {
               
               {service.forWhom && (
                 <div class="service-detail">
-                  <h4 class="service-detail-title">Для кого:</h4>
+                  <strong class="service-detail-title">Для кого:</strong>
                   <p class="service-detail-text">{service.forWhom}</p>
                 </div>
               )}
               
               {service.features && service.features.length > 0 && (
                 <div class="service-detail">
-                  <h4 class="service-detail-title">Функциональность:</h4>
+                  <strong class="service-detail-title">Функциональность:</strong>
                   <ul class="service-features">
                     {service.features.map((feature) => (
                       <li>{feature}</li>

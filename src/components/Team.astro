@@ -92,12 +92,12 @@ const getSocialIcon = (iconName: string) => {
 
               <div class="team-member-details">
                 <div class="team-detail">
-                  <h4 class="team-detail-title">Специализация:</h4>
+                  <strong class="team-detail-title">Специализация:</strong>
                   <p class="team-detail-text">{member.specialization}</p>
                 </div>
 
                 <div class="team-detail">
-                  <h4 class="team-detail-title">Стек технологий:</h4>
+                  <strong class="team-detail-title">Стек технологий:</strong>
                   <div class="team-stack">
                     {member.stack.map((tech) => (
                       <span class="team-tech-tag">{tech}</span>
@@ -107,7 +107,7 @@ const getSocialIcon = (iconName: string) => {
 
                 {member.socials && member.socials.length > 0 && (
                   <div class="team-social">
-                    <h4 class="team-detail-title">Связаться:</h4>
+                    <strong class="team-detail-title">Связаться:</strong>
                     <div class="team-social-links">
                       {member.socials.map((social) => (
                         <a
