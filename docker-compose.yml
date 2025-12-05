@@ -8,12 +8,18 @@ services:
     labels:
       - "traefik.enable=true"
       # HTTP router (redirect to HTTPS)
-      - "traefik.http.routers.roxend_static.rule=Host(`roxend.ru`)"
+      - "traefik.http.routers.roxend_static.rule=Host(`roxend.ru`) || Host(`www.roxend.ru`)"
       - "traefik.http.routers.roxend_static.entrypoints=web"
       - "traefik.http.routers.roxend_static.middlewares=redirect-to-https@file"
-      # HTTPS router
+      # HTTPS router for www (redirect to non-www)
+      - "traefik.http.routers.roxend_static_www.rule=Host(`www.roxend.ru`)"
+      - "traefik.http.routers.roxend_static_www.entrypoints=websecure"
+      - "traefik.http.routers.roxend_static_www.middlewares=redirect-www-to-non-www@file"
+      - "traefik.http.routers.roxend_static_www.tls.certresolver=letsencrypt"
+      # HTTPS router (main)
       - "traefik.http.routers.roxend_static_secure.rule=Host(`roxend.ru`)"
       - "traefik.http.routers.roxend_static_secure.entrypoints=websecure"
+      - "traefik.http.routers.roxend_static_secure.middlewares=compress@file"
       - "traefik.http.routers.roxend_static_secure.tls.certresolver=letsencrypt"
     expose:
       - "4321"
